@@ -1,0 +1,14 @@
+import { env } from '@env/my-demo-function';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+
+const s3Client = new S3Client();
+
+export const handler = async (event) => {
+  await s3Client.send(
+    new PutObjectCommand({
+      Bucket: env.myProjectFiles_BUCKET_NAME,
+      Key: 'foo/someFile.txt',
+      Body: 'this is an example'
+    })
+  );
+};
